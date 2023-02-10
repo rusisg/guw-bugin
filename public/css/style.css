@@ -44,11 +44,15 @@ nav ul {
 nav li {
   margin: 0 10px;
 }
+nav li:hover {
+  text-decoration: underline;
+  color: black;
+}
 
 /* Article styles */
 
 #content {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
 }
 
@@ -58,4 +62,8 @@ article {
 
 article h2 {
   margin: 0 0
+}
+
+footer {
+  align-content: center;
 }
