@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"strings"
 	"text/template"
 
 	"github.com/gin-gonic/gin"
@@ -9,23 +11,33 @@ import (
 
 func main() {
 	r := gin.Default()
-	tmpl := template.Must(template.ParseFiles("public/html/base.html", "public/html/header.html", "public/html/index.html", "public/html/news.html", "public/html/news_detail.html"))
+	r.SetFuncMap(template.FuncMap{
+		"upper": strings.ToUpper,
+	})
+	// tmpl := template.Must(template.ParseFiles("public/html/base.html", "public/html/header.html", "public/html/index.html", "public/html/news.html", "public/html/news_detail.html"))
 
 	r.Static("/css", "./public/css")
+	r.Static("/logo", "./public/logo")
 	r.LoadHTMLGlob("./public/html/*.html")
 
 	r.GET("/news", news)
-	r.GET("/", func(c *gin.Context) {
-		renderTemplate(c, tmpl, gin.H{
-			"title": "Atyrau Bugin",
-		})
+	r.GET("/news_detail", news_detail)
+	r.GET("/", index)
+
+	if err := r.Run(":3000"); err != nil {
+		fmt.Printf("Error while run the server %v", err)
+	}
+}
+
+func index(c *gin.Context) {
+	c.HTML(http.StatusOK, "base.html", gin.H{
+		"title": "Atyrau Bugin",
 	})
 
-	r.Run(":3000")
 }
 
 func news(c *gin.Context) {
-	c.HTML(http.StatusOK, "news.tmpl", gin.H{
+	c.HTML(http.StatusOK, "base.html", gin.H{
 		"title": "Latest News",
 		"articles": []interface{}{
 			map[string]interface{}{
@@ -40,9 +52,8 @@ func news(c *gin.Context) {
 	})
 }
 
-func renderTemplate(c *gin.Context, tmpl *template.Template, data interface{}) {
-	err := tmpl.Execute(c.Writer, data)
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-	}
+func news_detail(c *gin.Context) {
+	c.HTML(http.StatusOK, "base.html", gin.H{
+		"title": "Atyrau Bugin",
+	})
 }
