@@ -18,6 +18,8 @@ func main() {
 	r.GET("/news", handler.NewsGet)
 	r.GET("/news_detail", handler.NewsDetailGet)
 
+	// scraper...
+
 	if err := r.Run(":3000"); err != nil {
 		fmt.Printf("Error while run the server %v", err)
 	}

@@ -1,4 +1,6 @@
 # GUW Bugin
 ## News website
-1. need to connect react js cause css static doesn't make changes 
-2. how to scrape from this [website](https://tengrinews.kz/tag/%D0%B0%D1%82%D1%8B%D1%80%D0%B0%D1%83/)
+1. need to connect scraper with main.go
+2. need to connect react js cause css static doesn't make changes
+3. i did scrape but i need to make connect with GUW Bugin
+4. how to get data from json file(news.json)
